@@ -53,6 +53,22 @@
       border-radius: 5px;
       margin: 10px;
     }
+    .student-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .student-info input {
+      width: 80px;
+      text-align: center;
+    }
+    .student-info label {
+      font-weight: bold;
+      color: #333;
+    }
     button {
       font-size: 18px;
       padding: 12px 25px;
@@ -255,8 +271,16 @@
 
   <div id="start" style="display:block;">
     <h2>小数の割り算にチャレンジ！</h2>
-    <input type="text" id="playerName" placeholder="なまえ">
-    <br><br>
+    
+    <div class="student-info">
+      <label>学年:</label>
+      <input type="number" id="grade" placeholder="5" min="1" max="6" value="5">
+      <label>組:</label>
+      <input type="number" id="class" placeholder="1" min="1" max="10">
+      <label>出席番号:</label>
+      <input type="number" id="number" placeholder="1" min="1" max="50">
+    </div>
+    
     <div class="course-info">
       <h3>コースを選んでください</h3>
       <button class="course-btn" onclick="selectCourse('remainder')">
@@ -298,7 +322,7 @@
   <div id="scoreBoard" style="display:none;">
     <div class="score-board">
       <h2>🏆 結果発表</h2>
-      <div><strong>名前:</strong> <span id="displayName"></span></div>
+      <div><strong>学年・組・番号:</strong> <span id="displayName"></span></div>
       <div><strong>コース:</strong> <span id="displayCourse"></span></div>
       <div><strong>正解数:</strong> <span id="finalScore"></span></div>
       <div><strong>評価:</strong> <span id="rank"></span></div>
@@ -335,7 +359,15 @@
     
     function selectCourse(mode) {
       gameMode = mode;
-      playerName = document.getElementById("playerName").value.trim() || "ななしさん";
+      
+      // 学年・組・出席番号を取得
+      const grade = document.getElementById("grade").value || "5";
+      const classNum = document.getElementById("class").value || "1";
+      const number = document.getElementById("number").value || "1";
+      
+      // 学年・組・番号の形式で名前を作成
+      playerName = `${grade}年${classNum}組${number}番`;
+      
       loadRankings();
       document.getElementById("start").style.display = "none";
       document.getElementById("game").style.display = "block";
@@ -636,13 +668,13 @@
       
       if (playerRank <= 3 && playerRank !== -1) {
         const medals = ['🥇', '🥈', '🥉'];
-        playerRankElement.innerHTML = `🎉 おめでとう！ ${playerName}さんは${medals[playerRank - 1]} ${playerRank}位にランクイン！（${score}ポイント）`;
+        playerRankElement.innerHTML = `🎉 おめでとう！ ${playerName}は${medals[playerRank - 1]} ${playerRank}位にランクイン！（${score}ポイント）`;
         playerRankElement.style.background = 'linear-gradient(90deg, #fff9e6, #f0f8ff)';
       } else if (playerRank !== -1) {
-        playerRankElement.innerHTML = `${playerName}さんの順位: ${playerRank}位（${score}ポイント）`;
+        playerRankElement.innerHTML = `${playerName}の順位: ${playerRank}位（${score}ポイント）`;
         playerRankElement.style.background = '#e8f5e8';
       } else {
-        playerRankElement.innerHTML = `${playerName}さん: ランキング圏外（${score}ポイント）`;
+        playerRankElement.innerHTML = `${playerName}: ランキング圏外（${score}ポイント）`;
         playerRankElement.style.background = '#f8f9fa';
       }
     }
