@@ -4,293 +4,78 @@
   <meta charset="UTF-8" />
   <title>千早算数クエスト５年生</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f0f8ff;
-      margin: 0;
-      padding: 20px;
-    }
-    .monster {
-      font-size: 80px;
-      transition: transform 0.3s;
-      margin: 20px 0;
-    }
-    .monster.correct {
-      animation: correctAnim 1.5s ease-in-out;
-    }
-    .monster.levelup {
-      animation: levelupAnim 2.5s ease-in-out;
-    }
+    body { font-family: Arial, sans-serif; text-align: center; background: #f0f8ff; margin: 0; padding: 20px; }
+    .monster { font-size: 80px; transition: transform 0.3s; margin: 20px 0; }
+    .monster.correct { animation: correctAnim 1.5s ease-in-out; }
+    .monster.levelup { animation: levelupAnim 2.5s ease-in-out; }
     @keyframes correctAnim {
       0% { transform: scale(1) rotate(0deg); color: #000; }
-      25% { transform: scale(1.3) rotate(-10deg); color: #00ff00; }
       50% { transform: scale(1.5) rotate(10deg); color: #ffff00; }
-      75% { transform: scale(1.3) rotate(-5deg); color: #ff6600; }
       100% { transform: scale(1) rotate(0deg); color: gold; }
     }
     @keyframes levelupAnim {
       0% { transform: scale(1) rotate(0deg); color: #000; }
-      20% { transform: scale(2) rotate(360deg); color: #ff0099; }
-      40% { transform: scale(1.5) rotate(720deg); color: #00ff99; }
-      60% { transform: scale(2.5) rotate(1080deg); color: #9900ff; }
-      80% { transform: scale(2) rotate(1440deg); color: #ffff00; }
+      50% { transform: scale(2.5) rotate(1080deg); color: #9900ff; }
       100% { transform: scale(1) rotate(1800deg); color: #ff6600; }
     }
-    .question {
-      font-size: 28px;
-      margin: 30px;
-      padding: 20px;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    input[type="number"], input[type="text"] {
-      font-size: 20px;
-      padding: 12px;
-      width: 150px;
-      border: 2px solid #ddd;
-      border-radius: 5px;
-      margin: 10px;
-    }
-    .student-info {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin: 20px 0;
-      flex-wrap: wrap;
-    }
-    .student-info input {
-      width: 80px;
-      text-align: center;
-    }
-    .student-info label {
-      font-weight: bold;
-      color: #333;
-    }
-    button {
-      font-size: 18px;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 5px;
-      background-color: #3498db;
-      color: white;
-      cursor: pointer;
-      margin: 5px;
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    .course-btn {
-      background-color: #9b59b6;
-      margin: 10px;
-      padding: 15px 30px;
-      font-size: 16px;
-    }
-    .course-btn:hover {
-      background-color: #8e44ad;
-    }
-    .retry-btn {
-      background-color: #e74c3c;
-    }
-    .retry-btn:hover {
-      background-color: #c0392b;
-    }
-    .next-btn {
-      background-color: #27ae60;
-    }
-    .next-btn:hover {
-      background-color: #229954;
-    }
-    .status {
-      margin: 20px;
-      font-size: 18px;
-    }
-    .score-board {
-      padding: 20px;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      margin: 20px;
-    }
-    .ranking {
-      background-color: #f8f9fa;
-      border-radius: 10px;
-      padding: 15px;
-      margin: 20px 0;
-      text-align: left;
-    }
-    .rank-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 12px;
-      margin: 5px 0;
-      background-color: white;
-      border-radius: 5px;
-      border-left: 4px solid #3498db;
-    }
-    .rank-item.first {
-      border-left-color: #f1c40f;
-      background: linear-gradient(90deg, #fff9e6, white);
-    }
-    .rank-item.second {
-      border-left-color: #95a5a6;
-      background: linear-gradient(90deg, #f8f9fa, white);
-    }
-    .rank-item.third {
-      border-left-color: #e67e22;
-      background: linear-gradient(90deg, #fdf2e9, white);
-    }
-    .player-rank {
-      background-color: #e8f5e8;
-      border: 2px solid #27ae60;
-      font-weight: bold;
-      text-align: center;
-      padding: 10px;
-      border-radius: 5px;
-      margin: 10px 0;
-    }
-    .celebration {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1000;
-    }
-    .confetti {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: #ff6b6b;
-      animation: confetti-fall 3s linear;
-    }
+    .question { font-size: 28px; margin: 30px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    input[type="number"], input[type="text"] { font-size: 20px; padding: 12px; width: 150px; border: 2px solid #ddd; border-radius: 5px; margin: 10px; }
+    .student-info { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
+    .student-info input { width: 80px; text-align: center; }
+    .student-info label { font-weight: bold; color: #333; }
+    button { font-size: 18px; padding: 12px 25px; border: none; border-radius: 5px; background: #3498db; color: white; cursor: pointer; margin: 5px; }
+    button:hover { background: #2980b9; }
+    .course-btn { background: #9b59b6; margin: 10px; padding: 15px 30px; font-size: 16px; }
+    .course-btn:hover { background: #8e44ad; }
+    .retry-btn { background: #e74c3c; }
+    .retry-btn:hover { background: #c0392b; }
+    .next-btn { background: #27ae60; }
+    .next-btn:hover { background: #229954; }
+    .status { margin: 20px; font-size: 18px; }
+    .score-board { padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin: 20px; }
+    .ranking, .course-info { background: #f8f9fa; border-radius: 10px; padding: 15px; margin: 20px 0; }
+    .course-info { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .rank-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; margin: 5px 0; background: white; border-radius: 5px; border-left: 4px solid #3498db; }
+    .rank-item.first { border-left-color: #f1c40f; background: linear-gradient(90deg, #fff9e6, white); }
+    .rank-item.second { border-left-color: #95a5a6; background: linear-gradient(90deg, #f8f9fa, white); }
+    .rank-item.third { border-left-color: #e67e22; background: linear-gradient(90deg, #fdf2e9, white); }
+    .player-rank { background: #e8f5e8; border: 2px solid #27ae60; font-weight: bold; text-align: center; padding: 10px; border-radius: 5px; margin: 10px 0; }
+    .celebration { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+    .confetti { position: absolute; width: 10px; height: 10px; background: #ff6b6b; animation: confetti-fall 3s linear; }
     .confetti:nth-child(2n) { background: #4ecdc4; }
     .confetti:nth-child(3n) { background: #45b7d1; }
     .confetti:nth-child(4n) { background: #f9ca24; }
     .confetti:nth-child(5n) { background: #6c5ce7; }
-    @keyframes confetti-fall {
-      0% {
-        transform: translateY(-100vh) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) rotate(720deg);
-        opacity: 0;
-      }
-    }
-    .levelup-text {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 48px;
-      font-weight: bold;
-      color: #ff6600;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-      animation: levelup-text 2s ease-in-out;
-      pointer-events: none;
-      z-index: 999;
-    }
-    @keyframes levelup-text {
-      0% { transform: translate(-50%, -50%) scale(0) rotate(-180deg); opacity: 0; }
-      50% { transform: translate(-50%, -50%) scale(1.5) rotate(0deg); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0; }
-    }
-    .course-info {
-      background-color: white;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    
-    /* 新しく追加：モンスターコレクション */
-    .monster-collection {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-      max-width: 300px;
-      z-index: 100;
-    }
-    .monster-collection h4 {
-      margin: 0 0 10px 0;
-      font-size: 16px;
-      color: #333;
-    }
-    .collected-monsters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .collected-monster {
-      font-size: 40px;
-      opacity: 1;
-      transition: all 0.3s ease;
-      animation: monsterGet 1s ease-in-out;
-    }
-    @keyframes monsterGet {
-      0% { transform: scale(0) rotate(-180deg); opacity: 0; }
-      50% { transform: scale(1.5) rotate(0deg); opacity: 1; }
-      100% { transform: scale(1) rotate(0deg); opacity: 1; }
-    }
-    
-    /* スコアボード用のモンスターコレクション表示 */
-    .final-collection {
-      background-color: #f8f9fa;
-      border-radius: 10px;
-      padding: 15px;
-      margin: 20px 0;
-      text-align: center;
-    }
-    .final-collection h3 {
-      margin-bottom: 15px;
-      color: #333;
-    }
-    .final-monsters {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-    .final-monster {
-      font-size: 50px;
-      opacity: 1;
-    }
+    @keyframes confetti-fall { 0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+    .levelup-text { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 48px; font-weight: bold; color: #ff6600; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); animation: levelup-text 2s ease-in-out; pointer-events: none; z-index: 999; }
+    @keyframes levelup-text { 0% { transform: translate(-50%, -50%) scale(0) rotate(-180deg); opacity: 0; } 50% { transform: translate(-50%, -50%) scale(1.5) rotate(0deg); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0; } }
+    .monster-collection { position: fixed; bottom: 20px; left: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 10px; padding: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); max-width: 300px; z-index: 100; }
+    .monster-collection h4 { margin: 0 0 10px 0; font-size: 16px; color: #333; }
+    .collected-monsters { display: flex; flex-wrap: wrap; gap: 10px; }
+    .collected-monster { font-size: 40px; opacity: 1; transition: all 0.3s ease; animation: monsterGet 1s ease-in-out; }
+    @keyframes monsterGet { 0% { transform: scale(0) rotate(-180deg); opacity: 0; } 50% { transform: scale(1.5) rotate(0deg); opacity: 1; } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
+    .final-collection { background: #f8f9fa; border-radius: 10px; padding: 15px; margin: 20px 0; text-align: center; }
+    .final-collection h3 { margin-bottom: 15px; color: #333; }
+    .final-monsters { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; }
+    .final-monster { font-size: 50px; opacity: 1; }
+    .clear-text { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 64px; font-weight: bold; color: #ff0066; text-shadow: 3px 3px 6px rgba(0,0,0,0.7); animation: clear-text 3s ease-in-out; pointer-events: none; z-index: 999; }
+    @keyframes clear-text { 0% { transform: translate(-50%, -50%) scale(0) rotate(-360deg); opacity: 0; } 30% { transform: translate(-50%, -50%) scale(1.8) rotate(0deg); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0; } }
   </style>
 </head>
 <body>
   <h1>🧮 千早算数クエスト５年生</h1>
 
-  <div id="start" style="display:block;">
+  <div id="start">
     <h2>小数の割り算にチャレンジ！</h2>
-    
     <div class="student-info">
-      <label>学年:</label>
-      <input type="number" id="grade" placeholder="5" min="1" max="6" value="5">
-      <label>組:</label>
-      <input type="number" id="class" placeholder="1" min="1" max="10">
-      <label>出席番号:</label>
-      <input type="number" id="number" placeholder="1" min="1" max="50">
+      <label>学年:</label><input type="number" id="grade" placeholder="5" min="1" max="6" value="5">
+      <label>組:</label><input type="number" id="class" placeholder="1" min="1" max="10">
+      <label>出席番号:</label><input type="number" id="number" placeholder="1" min="1" max="50">
     </div>
-    
     <div class="course-info">
       <h3>コースを選んでください</h3>
-      <button class="course-btn" onclick="selectCourse('remainder')">
-        🎯 あまりありコース<br>
-        <small>小数第二位までの商をもとめ、あまりを求める割り算</small>
-      </button>
-      <button class="course-btn" onclick="selectCourse('no-remainder')">
-        ✨ あまりなしコース<br>
-        <small>わりきれないときは、商を四捨五入するわり算</small>
-      </button>
+      <button class="course-btn" onclick="selectCourse('remainder')">🎯 あまりありコース<br><small>小数第二位までの商をもとめ、あまりを求める割り算</small></button>
+      <button class="course-btn" onclick="selectCourse('no-remainder')">✨ あまりなしコース<br><small>わりきれないときは、商を四捨五入するわり算</small></button>
     </div>
   </div>
 
@@ -301,9 +86,7 @@
       <div id="quotientInput">商（小数第二位まで）: <input type="number" id="quotient" placeholder="商" step="0.01" style="width: 120px;"></div>
       <div id="remainderInput" style="margin-top: 10px;">あまり: <input type="number" id="remainder" placeholder="あまり（空白は0）" step="0.01" style="width: 120px;"></div>
     </div>
-    <div id="normalButtons">
-      <button onclick="submitAnswer()">こたえる</button>
-    </div>
+    <div id="normalButtons"><button onclick="submitAnswer()">こたえる</button></div>
     <div id="retryButtons" style="display:none;">
       <button class="retry-btn" onclick="retry()">ときなおす</button>
       <button class="next-btn" onclick="nextQuestion()">つぎへ</button>
@@ -311,8 +94,8 @@
     <div class="status" id="status"></div>
     <div class="status" id="levelInfo"></div>
     <div class="status" id="courseInfo"></div>
+    <div class="status" id="timeInfo"></div>
     
-    <!-- モンスターコレクション -->
     <div class="monster-collection" id="monsterCollection">
       <h4>🎯 モンスター図鑑</h4>
       <div class="collected-monsters" id="collectedMonsters"></div>
@@ -325,9 +108,9 @@
       <div><strong>学年・組・番号:</strong> <span id="displayName"></span></div>
       <div><strong>コース:</strong> <span id="displayCourse"></span></div>
       <div><strong>正解数:</strong> <span id="finalScore"></span></div>
+      <div><strong>クリア時間:</strong> <span id="clearTime"></span></div>
       <div><strong>評価:</strong> <span id="rank"></span></div>
       
-      <!-- 最終的なモンスターコレクション -->
       <div class="final-collection">
         <h3>🎯 ゲットしたモンスター</h3>
         <div class="final-monsters" id="finalMonsters"></div>
@@ -340,106 +123,74 @@
         <div id="rankingList"></div>
       </div>
       
-      <br>
-      <button onclick="restart()">もう一度</button>
+      <button onclick="location.reload()">もう一度</button>
     </div>
   </div>
 
   <script>
     let score = 0, level = 1, hp = 3, correctQuotient = 0, correctRemainder = 0, playerName = "";
-    let currentA = 0, currentB = 0, gameMode = "";
+    let currentA = 0, currentB = 0, gameMode = "", startTime = 0, isGameCleared = false;
     const monsters = ["👾", "🐉", "👹", "👺", "🧙‍♂️", "🤖", "👻", "🎃", "🦄", "🐲"];
     let obtainedMonsters = [];
-    
-    // ランキングデータを管理
-    let rankings = {
-      'remainder': [],
-      'no-remainder': []
-    };
+    let rankings = { 'remainder': [], 'no-remainder': [] };
     
     function selectCourse(mode) {
       gameMode = mode;
-      
-      // 学年・組・出席番号を取得
       const grade = document.getElementById("grade").value || "5";
       const classNum = document.getElementById("class").value || "1";
       const number = document.getElementById("number").value || "1";
-      
-      // 学年・組・番号の形式で名前を作成
       playerName = `${grade}年${classNum}組${number}番`;
       
+      startTime = Date.now();
       loadRankings();
       document.getElementById("start").style.display = "none";
       document.getElementById("game").style.display = "block";
       
-      // あまりなしコースの場合はあまり入力欄を非表示
       if (mode === 'no-remainder') {
         document.getElementById("remainderInput").style.display = "none";
         document.getElementById("quotientInput").innerHTML = '商（四捨五入して小数第二位まで）: <input type="number" id="quotient" placeholder="商" step="0.01" style="width: 120px;">';
         document.getElementById("courseInfo").textContent = "🎮 あまりなしコース";
       } else {
-        document.getElementById("remainderInput").style.display = "block";
         document.getElementById("quotientInput").innerHTML = '商（小数第二位まで）: <input type="number" id="quotient" placeholder="商" step="0.01" style="width: 120px;">';
         document.getElementById("courseInfo").textContent = "🎮 あまりありコース";
       }
       
-      // モンスターコレクションを初期化
-      initMonsterCollection();
+      obtainedMonsters = [0];
+      const collectedMonstersDiv = document.getElementById("collectedMonsters");
+      collectedMonstersDiv.innerHTML = '<div class="collected-monster">👾</div>';
       
       generateQuestion();
       updateDisplay();
-    }
-
-    function initMonsterCollection() {
-      const collectedMonstersDiv = document.getElementById("collectedMonsters");
-      collectedMonstersDiv.innerHTML = '';
-      
-      // 最初のモンスターは既に取得済み
-      obtainedMonsters = [0];
-      
-      // 最初のモンスターのみ表示
-      const monsterDiv = document.createElement('div');
-      monsterDiv.className = 'collected-monster';
-      monsterDiv.textContent = monsters[0];
-      collectedMonstersDiv.appendChild(monsterDiv);
+      updateTimer();
     }
 
     function generateQuestion() {
       if (gameMode === 'no-remainder') {
-        // あまりなしの問題 - 完全に割り切れる問題を作成
-        currentB = parseFloat((Math.random() * 4 + 2).toFixed(1)); // 2.0-5.9
-        const baseQuotient = Math.floor(Math.random() * 800 + 100) / 100; // 1.00-8.99
+        currentB = parseFloat((Math.random() * 4 + 2).toFixed(1));
+        const baseQuotient = Math.floor(Math.random() * 800 + 100) / 100;
         correctQuotient = baseQuotient;
         currentA = parseFloat((correctQuotient * currentB).toFixed(2));
         correctRemainder = 0;
       } else {
-        // あまりが出る問題
-        currentA = parseFloat((Math.random() * 25 + 10).toFixed(1)); // 10.0-34.9
-        currentB = parseFloat((Math.random() * 3 + 2.5).toFixed(1)); // 2.5-5.4
-        
+        currentA = parseFloat((Math.random() * 25 + 10).toFixed(1));
+        currentB = parseFloat((Math.random() * 3 + 2.5).toFixed(1));
         const exactQuotient = currentA / currentB;
         const quotientStr = exactQuotient.toFixed(5);
         const dotIndex = quotientStr.indexOf('.');
-        const truncatedStr = quotientStr.substring(0, dotIndex + 3);
-        correctQuotient = parseFloat(truncatedStr);
-        
+        correctQuotient = parseFloat(quotientStr.substring(0, dotIndex + 3));
         correctRemainder = parseFloat((currentA - (correctQuotient * currentB)).toFixed(3));
         
         if (Math.abs(correctRemainder) < 0.01) {
           currentA = parseFloat((currentA + 0.7).toFixed(1));
           const newExactQuotient = currentA / currentB;
           const newQuotientStr = newExactQuotient.toFixed(5);
-          const newTruncatedStr = newQuotientStr.substring(0, newQuotientStr.indexOf('.') + 3);
-          correctQuotient = parseFloat(newTruncatedStr);
+          correctQuotient = parseFloat(newQuotientStr.substring(0, newQuotientStr.indexOf('.') + 3));
           correctRemainder = parseFloat((currentA - (correctQuotient * currentB)).toFixed(3));
         }
       }
       
-      const questionText = gameMode === 'no-remainder' ? 
-        `${currentA} ÷ ${currentB} = ？` : 
-        `${currentA} ÷ ${currentB} = 商？ あまり？`;
-      
-      document.getElementById("question").textContent = questionText;
+      document.getElementById("question").textContent = gameMode === 'no-remainder' ? 
+        `${currentA} ÷ ${currentB} = ？` : `${currentA} ÷ ${currentB} = 商？ あまり？`;
       document.getElementById("quotient").value = "";
       document.getElementById("remainder").value = "";
       document.getElementById("normalButtons").style.display = "block";
@@ -448,9 +199,7 @@
 
     function submitAnswer() {
       const userQuotient = parseFloat(document.getElementById("quotient").value) || 0;
-      
-      let userRemainder = 0;
-      let remainderCorrect = true;
+      let userRemainder = 0, remainderCorrect = true;
       
       if (gameMode === 'remainder') {
         const remainderValue = document.getElementById("remainder").value.trim();
@@ -458,15 +207,16 @@
         remainderCorrect = Math.abs(userRemainder - correctRemainder) < 0.001;
       }
       
-      const quotientCorrect = Math.abs(userQuotient - correctQuotient) < 0.001;
-      
-      if (quotientCorrect && remainderCorrect) {
+      if (Math.abs(userQuotient - correctQuotient) < 0.001 && remainderCorrect) {
         score++;
-        
         createCelebration();
         
         if (score % 5 === 0) {
-          // レベルアップ＆新しいモンスター取得
+          if (level >= 10) {
+            gameCleared();
+            return;
+          }
+          
           document.getElementById("monster").classList.add("levelup");
           showLevelUpText();
           setTimeout(() => {
@@ -475,7 +225,6 @@
             const newMonsterIndex = Math.floor(score / 5);
             if (newMonsterIndex < monsters.length) {
               document.getElementById("monster").textContent = monsters[newMonsterIndex];
-              // 新しいモンスターを取得
               addNewMonster(newMonsterIndex);
             }
           }, 2500);
@@ -494,46 +243,64 @@
       }
     }
 
+    function gameCleared() {
+      isGameCleared = true;
+      showClearText();
+      setTimeout(() => {
+        createMegaCelebration();
+        setTimeout(showScore, 3000);
+      }, 3000);
+    }
+
+    function showClearText() {
+      const clearText = document.createElement('div');
+      clearText.className = 'clear-text';
+      clearText.textContent = '🎉 GAME CLEAR! 🎉';
+      document.body.appendChild(clearText);
+      setTimeout(() => document.body.removeChild(clearText), 3000);
+    }
+
+    function createMegaCelebration() {
+      const celebration = document.createElement('div');
+      celebration.className = 'celebration';
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.animationDelay = Math.random() * 3 + 's';
+        celebration.appendChild(confetti);
+      }
+      document.body.appendChild(celebration);
+      setTimeout(() => document.body.removeChild(celebration), 5000);
+    }
+
     function addNewMonster(index) {
       if (index < monsters.length && !obtainedMonsters.includes(index)) {
         obtainedMonsters.push(index);
-        
-        // 新しいモンスターを図鑑に追加
-        const collectedMonstersDiv = document.getElementById("collectedMonsters");
         const monsterDiv = document.createElement('div');
         monsterDiv.className = 'collected-monster';
         monsterDiv.textContent = monsters[index];
-        collectedMonstersDiv.appendChild(monsterDiv);
+        document.getElementById("collectedMonsters").appendChild(monsterDiv);
       }
     }
 
     function retry() {
-      hp -= 0.5;
+      hp--;
       document.getElementById("normalButtons").style.display = "block";
       document.getElementById("retryButtons").style.display = "none";
       document.getElementById("status").innerHTML = "もう一度考えてみよう！";
       updateDisplay();
-      
-      if (hp <= 0) {
-        showScore();
-      }
+      if (hp <= 0) showScore();
     }
 
     function nextQuestion() {
       hp--;
       let correctAnswerText = `商: ${correctQuotient}`;
-      if (gameMode === 'remainder') {
-        correctAnswerText += `、あまり: ${correctRemainder}`;
-      }
-      
+      if (gameMode === 'remainder') correctAnswerText += `、あまり: ${correctRemainder}`;
       document.getElementById("status").innerHTML = `正解は ${correctAnswerText} でした`;
       updateDisplay();
-      
-      if (hp <= 0) {
-        setTimeout(showScore, 2000);
-      } else {
-        setTimeout(generateQuestion, 2000);
-      }
+      if (hp <= 0) setTimeout(showScore, 2000);
+      else setTimeout(generateQuestion, 2000);
     }
 
     function updateDisplay() {
@@ -541,61 +308,58 @@
         `📈 レベル: ${level} | HP: ${"❤️".repeat(Math.floor(hp))}${hp % 1 ? "💔" : ""}`;
     }
 
+    function updateTimer() {
+      if (!isGameCleared && document.getElementById("game").style.display !== "none") {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const minutes = Math.floor(elapsed / 60);
+        const seconds = elapsed % 60;
+        document.getElementById("timeInfo").innerHTML = `⏱️ 経過時間: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        setTimeout(updateTimer, 1000);
+      }
+    }
+
     function showScore() {
       saveScore();
-      
       document.getElementById("game").style.display = "none";
       document.getElementById("scoreBoard").style.display = "block";
       document.getElementById("displayName").textContent = playerName;
       document.getElementById("displayCourse").textContent = gameMode === 'remainder' ? 'あまりありコース' : 'あまりなしコース';
       document.getElementById("finalScore").textContent = score;
       
-      const rank = score >= 15 ? "🌟 小数マスター！" :
-                   score >= 8 ? "💡 よくできました！" :
-                   "📘 また挑戦してね！";
+      const totalTime = Math.floor((Date.now() - startTime) / 1000);
+      const minutes = Math.floor(totalTime / 60);
+      const seconds = totalTime % 60;
+      document.getElementById("clearTime").textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      
+      const rank = isGameCleared ? "🌟 ゲームクリア！小数マスター！" :
+                   score >= 15 ? "🌟 小数マスター！" :
+                   score >= 8 ? "💡 よくできました！" : "📘 また挑戦してね！";
       document.getElementById("rank").textContent = rank;
       
-      // 最終的なモンスターコレクションを表示
-      showFinalMonsterCollection();
-      
-      displayRanking();
-    }
-
-    function showFinalMonsterCollection() {
       const finalMonstersDiv = document.getElementById("finalMonsters");
       finalMonstersDiv.innerHTML = '';
-      
-      // 取得したモンスターのみ表示
       obtainedMonsters.forEach(index => {
         const monsterDiv = document.createElement('div');
         monsterDiv.className = 'final-monster';
         monsterDiv.textContent = monsters[index];
         finalMonstersDiv.appendChild(monsterDiv);
       });
-    }
-
-    function restart() {
-      location.reload();
+      
+      displayRanking();
     }
 
     function createCelebration() {
       const celebration = document.createElement('div');
       celebration.className = 'celebration';
-      
       for (let i = 0; i < 50; i++) {
         const confetti = document.createElement('div');
         confetti.className = 'confetti';
         confetti.style.left = Math.random() * 100 + '%';
         confetti.style.animationDelay = Math.random() * 3 + 's';
-        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
         celebration.appendChild(confetti);
       }
-      
       document.body.appendChild(celebration);
-      
-      setTimeout(() => {
-        document.body.removeChild(celebration);
-      }, 3000);
+      setTimeout(() => document.body.removeChild(celebration), 3000);
     }
 
     function showLevelUpText() {
@@ -603,36 +367,36 @@
       levelUpText.className = 'levelup-text';
       levelUpText.textContent = `🌟 LEVEL UP! 新しいモンスターをゲット！ 🌟`;
       document.body.appendChild(levelUpText);
-      
-      setTimeout(() => {
-        document.body.removeChild(levelUpText);
-      }, 2000);
+      setTimeout(() => document.body.removeChild(levelUpText), 2000);
     }
 
     function loadRankings() {
-      const savedRankings = getRankingData();
-      if (savedRankings) {
-        rankings = savedRankings;
-      }
+      if (window.gameRankings) rankings = window.gameRankings;
     }
 
     function saveScore() {
       const currentRanking = rankings[gameMode] || [];
+      const totalTime = Math.floor((Date.now() - startTime) / 1000);
       currentRanking.push({
         name: playerName,
         score: score,
+        time: totalTime,
+        cleared: isGameCleared,
         date: new Date().toLocaleDateString()
       });
-      
-      currentRanking.sort((a, b) => b.score - a.score);
+      currentRanking.sort((a, b) => {
+        if (a.cleared && !b.cleared) return -1;
+        if (!a.cleared && b.cleared) return 1;
+        if (a.cleared && b.cleared) return a.time - b.time;
+        return b.score - a.score;
+      });
       rankings[gameMode] = currentRanking.slice(0, 20);
-      saveRankingData(rankings);
+      window.gameRankings = rankings;
     }
 
     function displayRanking() {
       const currentRanking = rankings[gameMode] || [];
       const rankingList = document.getElementById("rankingList");
-      
       const top3 = currentRanking.slice(0, 3);
       rankingList.innerHTML = '';
       
@@ -642,55 +406,43 @@
         top3.forEach((player, index) => {
           const rankItem = document.createElement('div');
           rankItem.className = `rank-item ${['first', 'second', 'third'][index]}`;
-          
           const medals = ['🥇', '🥈', '🥉'];
-          rankItem.innerHTML = `
-            <span>${medals[index]} ${index + 1}位</span>
-            <span>${player.score}ポイント</span>
-          `;
+          const timeStr = `${Math.floor(player.time / 60)}:${(player.time % 60).toString().padStart(2, '0')}`;
+          const statusText = player.cleared ? `クリア(${timeStr})` : `${player.score}ポイント`;
+          rankItem.innerHTML = `<span>${medals[index]} ${index + 1}位</span><span>${statusText}</span>`;
           rankingList.appendChild(rankItem);
         });
       }
       
-      showPlayerRank(currentRanking);
-    }
-
-    function showPlayerRank(ranking) {
-      const playerRankElement = document.getElementById("playerRank");
-      
       let playerRank = -1;
-      for (let i = 0; i < ranking.length; i++) {
-        if (ranking[i].name === playerName && ranking[i].score === score) {
+      for (let i = 0; i < currentRanking.length; i++) {
+        if (currentRanking[i].name === playerName && currentRanking[i].score === score) {
           playerRank = i + 1;
           break;
         }
       }
       
+      const playerRankElement = document.getElementById("playerRank");
       if (playerRank <= 3 && playerRank !== -1) {
         const medals = ['🥇', '🥈', '🥉'];
-        playerRankElement.innerHTML = `🎉 おめでとう！ ${playerName}は${medals[playerRank - 1]} ${playerRank}位にランクイン！（${score}ポイント）`;
+        const statusText = isGameCleared ? 'ゲームクリア' : `${score}ポイント`;
+        playerRankElement.innerHTML = `🎉 おめでとう！ ${playerName}は${medals[playerRank - 1]} ${playerRank}位にランクイン！（${statusText}）`;
         playerRankElement.style.background = 'linear-gradient(90deg, #fff9e6, #f0f8ff)';
       } else if (playerRank !== -1) {
-        playerRankElement.innerHTML = `${playerName}の順位: ${playerRank}位（${score}ポイント）`;
+        const statusText = isGameCleared ? 'ゲームクリア' : `${score}ポイント`;
+        playerRankElement.innerHTML = `${playerName}の順位: ${playerRank}位（${statusText}）`;
         playerRankElement.style.background = '#e8f5e8';
       } else {
-        playerRankElement.innerHTML = `${playerName}: ランキング圏外（${score}ポイント）`;
+        const statusText = isGameCleared ? 'ゲームクリア' : `${score}ポイント`;
+        playerRankElement.innerHTML = `${playerName}: ランキング圏外（${statusText}）`;
         playerRankElement.style.background = '#f8f9fa';
       }
     }
 
-    function saveRankingData(data) {
-      window.gameRankings = data;
-    }
-
-    function getRankingData() {
-      return window.gameRankings || null;
-    }
-
-    document.getElementById("quotient").addEventListener("keypress", function(e) {
+    document.getElementById("quotient").addEventListener("keypress", e => {
       if (e.key === "Enter") submitAnswer();
     });
-    document.getElementById("remainder").addEventListener("keypress", function(e) {
+    document.getElementById("remainder").addEventListener("keypress", e => {
       if (e.key === "Enter") submitAnswer();
     });
   </script>
