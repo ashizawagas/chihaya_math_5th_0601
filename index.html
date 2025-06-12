@@ -448,3 +448,146 @@
   </script>
 </body>
 </html>
+
+
+<script>
+// 手書き描画機能の変数（名前を変更して競合を回避）
+let drawCanvas, drawCtx, isDrawingNow = false;
+
+// 手書きスペースの初期化
+function initDrawingSpace() {
+  drawCanvas = document.getElementById('drawArea');
+  if (!drawCanvas) {
+    console.log('Canvas element not found');
+    return;
+  }
+  
+  drawCtx = drawCanvas.getContext('2d');
+  if (!drawCtx) {
+    console.log('Canvas context not available');
+    return;
+  }
+  
+  // Canvas設定を明示的に設定
+  drawCtx.lineCap = 'round';
+  drawCtx.lineJoin = 'round';
+  drawCtx.lineWidth = 2;
+  drawCtx.strokeStyle = '#2196f3';
+  
+  console.log('Drawing space initialized');
+  setupDrawingEvents();
+}
+
+function getDrawPos(e) {
+  const rect = drawCanvas.getBoundingClientRect();
+  
+  if (e.touches && e.touches.length > 0) {
+    return {
+      x: e.touches[0].clientX - rect.left,
+      y: e.touches[0].clientY - rect.top
+    };
+  } else {
+    return {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    };
+  }
+}
+
+function setupDrawingEvents() {
+  if (!drawCanvas || !drawCtx) {
+    console.log('Canvas or context not available for event setup');
+    return;
+  }
+  
+  console.log('Setting up drawing events');
+  
+  // マウス操作
+  drawCanvas.addEventListener('mousedown', function(e) {
+    console.log('Mouse down');
+    isDrawingNow = true;
+    const pos = getDrawPos(e);
+    drawCtx.beginPath();
+    drawCtx.moveTo(pos.x, pos.y);
+    e.preventDefault();
+  });
+  
+  drawCanvas.addEventListener('mousemove', function(e) {
+    if (!isDrawingNow) return;
+    console.log('Mouse move - drawing');
+    const pos = getDrawPos(e);
+    drawCtx.lineTo(pos.x, pos.y);
+    drawCtx.stroke();
+    e.preventDefault();
+  });
+  
+  drawCanvas.addEventListener('mouseup', function(e) {
+    console.log('Mouse up');
+    isDrawingNow = false;
+    drawCtx.beginPath();
+    e.preventDefault();
+  });
+  
+  drawCanvas.addEventListener('mouseleave', function(e) {
+    isDrawingNow = false;
+    drawCtx.beginPath();
+  });
+
+  // タッチ操作（スマホ・タブレット対応）
+  drawCanvas.addEventListener('touchstart', function(e) {
+    console.log('Touch start');
+    e.preventDefault();
+    isDrawingNow = true;
+    const pos = getDrawPos(e);
+    drawCtx.beginPath();
+    drawCtx.moveTo(pos.x, pos.y);
+  }, { passive: false });
+  
+  drawCanvas.addEventListener('touchmove', function(e) {
+    if (!isDrawingNow) return;
+    console.log('Touch move - drawing');
+    e.preventDefault();
+    const pos = getDrawPos(e);
+    drawCtx.lineTo(pos.x, pos.y);
+    drawCtx.stroke();
+  }, { passive: false });
+  
+  drawCanvas.addEventListener('touchend', function(e) {
+    console.log('Touch end');
+    e.preventDefault();
+    isDrawingNow = false;
+    drawCtx.beginPath();
+  }, { passive: false });
+  
+  drawCanvas.addEventListener('touchcancel', function(e) {
+    e.preventDefault();
+    isDrawingNow = false;
+    drawCtx.beginPath();
+  }, { passive: false });
+}
+
+function clearDrawCanvas() {
+  if (!drawCtx || !drawCanvas) {
+    console.log('Canvas or context not available for clearing');
+    return;
+  }
+  console.log('Clearing canvas');
+  drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+}
+
+// ページ読み込み時に手書きスペースを初期化
+window.addEventListener('load', function() {
+  console.log('Page loaded, initializing drawing space');
+  // 既存の初期化処理の後に手書きスペースを初期化
+  setTimeout(function() {
+    initDrawingSpace();
+  }, 1000); // 1秒後に初期化
+});
+
+// 手動初期化用の関数（デバッグ用）
+function manualInitDraw() {
+  console.log('Manual initialization');
+  initDrawingSpace();
+}
+</script>
+
